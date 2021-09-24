@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<bean id="androidClient" class="me.appz4.beacon.model.model.Client">
+	 <constructor-arg index="0" value="Android" />
+	 <constructor-arg index="1" value="floky-client-android" />
+	 <constructor-arg index="2" value="1" />
+	</bean>
+	
+	<bean id="iosClient" class="me.appz4.beacon.model.model.Client">
+	 <constructor-arg index="0" value="Ios" />
+	 <constructor-arg index="1" value="floky-client-ios" />
+	 <constructor-arg index="2" value="1" />
+	</bean>
+	
+	<bean id="clientContainer" class="me.appz4.beacon.security.ClientContainer">
+		<constructor-arg>
+	        <list>
+	        	<ref bean="androidClient" />
+	        	<ref bean="iosClient" />
+	        </list>
+	    </constructor-arg>
+	</bean>
+	
+</beans>

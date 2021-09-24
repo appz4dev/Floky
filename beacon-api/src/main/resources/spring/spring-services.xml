@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:aws-context="http://www.springframework.org/schema/cloud/aws/context" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/cloud/aws/context
+    http://www.springframework.org/schema/cloud/spring-cloud-aws-context.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd">
+    
+    <aws-context:context-credentials>
+     <aws-context:simple-credentials access-key="${amazon.access.key}" secret-key="${amazon.access.secret}" />
+  	</aws-context:context-credentials>
+    
+    <aws-context:context-region region="${amazon.region}"/>
+    
+    <aws-context:context-resource-loader/>
+    
+    <bean id="amazonFileManager" class="me.appz4.beacon.amazon.AwsFileManager">
+   	 <constructor-arg index="0" value="${amazon.s3.bucket}" />
+   	 <constructor-arg index="1" value="D:\\Temp\\" />
+   	 <constructor-arg index="2" value="https://s3.eu-central-1.amazonaws.com/listyeubucket/" />
+   	</bean>
+    
+    <bean id="passwordHasher" class="me.appz4.beacon.security.Sha512PasswordHasher" />
+    <bean id="validatorService" class="me.appz4.beacon.validation.GenericValidatorImpl" />
+    <bean id="beaconService" class="me.appz4.beacon.service.BeaconServiceImpl" />
+    <bean id="userService" class="me.appz4.beacon.service.UserServiceImpl" />
+    <bean id="messageService" class="me.appz4.beacon.service.MessageServiceImpl" />
+    <bean id="imageService" class="me.appz4.beacon.service.ImageServiceImpl" />
+    <bean id="firebaseService" class="me.appz4.beacon.firebase.FirebaseService" />
+</beans>
